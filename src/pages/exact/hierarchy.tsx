@@ -30,7 +30,7 @@ export default function ExactHierarchyPage() {
   return (
     <main className="w-full mx-auto px-4 flex flex-col items-center justify-center pb-12">
       <div className="w-full flex flex-row justify-between items-center p-2">
-        <h1 className="py-0 text-xl font-semibold">Hierarchy</h1>
+        <h1 className="py-0 text-xl font-semibold">Hierarchy Tree</h1>
         <LoggedInButtonExact />
       </div>
       <Card className="w-3xl mx-auto p-8 rounded-none">

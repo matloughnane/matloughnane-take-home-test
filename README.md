@@ -8,19 +8,26 @@ After thinking on it, I added a toggle to show an much closer version to the one
 
 I've made a list any links I've used for reference and reasoning below.
 
+Update: I added some small error catching in overtime.
+
 # My Assumptions
 
 - No AI coding help
 - I can use a component library
   - I've used [ui.shadcn.com](https://ui.shadcn.com/docs/installation/vite)
 - As noted in the Gong document, I've assumed the structure and content of the database is consisent
+  - There is data in the database
 
 # To Do
+Thing I would like to add - but haven't because of time constraints.
 
 - Add Tests
-- Clean Up the `auth-utils.ts` so that it's
+- Clean Up `auth-utils.ts`. (I've added a try/catch after the submission)
 - Find a more accurate font (for exact view)
 - Add `.env` variables
+- Empty States - I've assumed there is data, it would be nice to have empty states
+- Remove unnecessary CSS - I'm not sure about tree-shaking in Vite
+- Add axios / tanstack query if expanding the number of API calls
 
 # Links
 

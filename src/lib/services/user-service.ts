@@ -21,11 +21,18 @@ export interface DbUser extends User {
  * Gets All Users. All users are pulled from the database defined at API_URL
  */
 export async function getAllUsers(): Promise<User[]> {
-  const users = await fetch(constuctAPIEndpoint("users")).then((res) =>
-    res.json()
-  );
-  const passwordlessUsers = users.map(({ password, ...rest }: DbUser) => rest);
-  return passwordlessUsers;
+  try {
+    const users = await fetch(constuctAPIEndpoint("users")).then((res) =>
+      res.json()
+    );
+    const passwordlessUsers = users.map(
+      ({ password, ...rest }: DbUser) => rest
+    );
+    return passwordlessUsers;
+  } catch (e) {
+    console.error(`error fetching users: ${e}`);
+    return [];
+  }
 }
 
 /**
@@ -37,7 +44,7 @@ export async function getUserBySecret(secret: string): Promise<User | null> {
   const singleUserId = await fetch(
     constuctAPIEndpoint(`secrets/${secret}`)
   ).then((res) => res.json());
-  console.log(singleUserId);
+  // console.log(singleUserId);
   if (!singleUserId) {
     return null;
   }

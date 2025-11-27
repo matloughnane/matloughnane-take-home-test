@@ -33,7 +33,11 @@ export default function Hierarchy() {
         <LoggedInButton />
       </div>
       <Card className="w-3xl mx-auto p-8">
-        <HierarchyTree managers={managers} fullUserMap={flatUserMap} />
+        {managers.length != 0 ? (
+          <p>No Users Available</p>
+        ) : (
+          <HierarchyTree managers={managers} fullUserMap={flatUserMap} />
+        )}
       </Card>{" "}
       <div className="flex flex-row justify-between py-4">
         <VersionToggle page={"hierarchy"} />
