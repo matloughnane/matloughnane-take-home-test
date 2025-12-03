@@ -2,10 +2,9 @@ import type { User } from "@/lib/services/user-service";
 import { getUserFullName } from "@/lib/utils/string-utils";
 import { Avatar } from "@radix-ui/react-avatar";
 import { Minus, Plus } from "lucide-react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
 import type { UserMap } from "@/lib/utils/tree-utils";
-import { AuthContext } from "@/lib/contexts/auth-context";
 
 interface HierarchyNodeProps {
   user: User;
@@ -22,9 +21,15 @@ export function HierarchyNodeExact({ user, fullUserMap }: HierarchyNodeProps) {
     <div key={user.id} className="flex flex-col gap-2 py-2">
       <div className="flex flex-row items-center gap-4">
         {reports.length > 0 && !showReports ? (
-          <Plus className="cursor-pointer" onClick={() => setShowReports(true)} />
+          <Plus
+            className="cursor-pointer"
+            onClick={() => setShowReports(true)}
+          />
         ) : (
-          <Minus className="cursor-pointer" onClick={() => setShowReports(false)} />
+          <Minus
+            className="cursor-pointer"
+            onClick={() => setShowReports(false)}
+          />
         )}
         <Avatar className="w-10 h-10 rounded-full border-2 border-primary">
           <AvatarImage
@@ -41,7 +46,13 @@ export function HierarchyNodeExact({ user, fullUserMap }: HierarchyNodeProps) {
       {showReports && (
         <div className="flex flex-col ml-8 py-2w">
           {reports.map((r: User) => {
-            return <HierarchyNodeExact user={r} fullUserMap={fullUserMap} />;
+            return (
+              <HierarchyNodeExact
+                key={r.id}
+                user={r}
+                fullUserMap={fullUserMap}
+              />
+            );
           })}
         </div>
       )}

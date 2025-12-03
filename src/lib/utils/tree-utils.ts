@@ -5,16 +5,16 @@ import type { User } from "../services/user-service";
 //      <managerId>: reports: User[]
 // }
 
-interface UserNode extends User {
+export type UserNode = User & {
   reports: User[];
-}
+};
 
-export interface UserMap extends Map<number, UserNode> {}
+export type UserMap = Map<number, UserNode>;
 
 /**
  * Generates a flat map of users and direct reports
  * @param users the full user list
- * @returns
+ * @returns Map of user ID to UserNode with direct reports
  */
 export function generateFlatUserMap(users: User[]): Map<number, UserNode> {
   const userMap: UserMap = new Map();
@@ -27,7 +27,7 @@ export function generateFlatUserMap(users: User[]): Map<number, UserNode> {
 
   // ADD ALL USERS TO THEIR MANAGERS AS REPORTS
   users.forEach((u: User) => {
-    if (u.managerId) {
+    if (u.managerId && userMap.has(u.managerId)) {
       const needToUpdate = userMap.get(u.managerId!)!;
       needToUpdate.reports.push(u);
       userMap.set(u.managerId!, needToUpdate);

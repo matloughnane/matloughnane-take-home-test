@@ -12,14 +12,16 @@ import { useEffect, useMemo, useState } from "react";
 export default function Hierarchy() {
   const [users, setUsers] = useState<User[]>([]);
 
-  useEffect(() => {
-    loadUsers();
-  }, []);
-
+  // DECLARE FUNCTION BEFORE CALLING IN useEffect
   const loadUsers = async () => {
     const totalUsers = await getAllUsers();
     setUsers(totalUsers);
   };
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
   const { managers, flatUserMap } = useMemo(() => {
     const managers = generateManagerList(users);
     const flatUserMap = generateFlatUserMap(users);
@@ -33,7 +35,7 @@ export default function Hierarchy() {
         <LoggedInButton />
       </div>
       <Card className="w-3xl mx-auto p-8">
-        {managers.length != 0 ? (
+        {managers.length == 0 ? (
           <p>No Users Available</p>
         ) : (
           <HierarchyTree managers={managers} fullUserMap={flatUserMap} />

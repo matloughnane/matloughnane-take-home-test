@@ -2,7 +2,7 @@
 // I WOULDN'T NORMALLY HAVE A
 //
 
-import { constuctAPIEndpoint } from "../constants";
+import { constructAPIEndpoint } from "../constants";
 
 export interface User {
   id: number;
@@ -10,7 +10,7 @@ export interface User {
   firstName: string;
   lastName: string;
   managerId?: number;
-  photo: string;
+  photo?: string;
 }
 
 export interface DbUser extends User {
@@ -22,7 +22,7 @@ export interface DbUser extends User {
  */
 export async function getAllUsers(): Promise<User[]> {
   try {
-    const users = await fetch(constuctAPIEndpoint("users")).then((res) =>
+    const users = await fetch(constructAPIEndpoint("users")).then((res) =>
       res.json()
     );
     const passwordlessUsers = users.map(
@@ -42,7 +42,7 @@ export async function getAllUsers(): Promise<User[]> {
 export async function getUserBySecret(secret: string): Promise<User | null> {
   // VERIFY USER EXISTS
   const singleUserId = await fetch(
-    constuctAPIEndpoint(`secrets/${secret}`)
+    constructAPIEndpoint(`secrets/${secret}`)
   ).then((res) => res.json());
   // console.log(singleUserId);
   if (!singleUserId) {

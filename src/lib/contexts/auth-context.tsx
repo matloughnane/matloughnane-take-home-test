@@ -23,6 +23,7 @@ export const AuthContext = createContext<AuthContextProps>({
   user: null,
   isUserLoading: false,
   login: (email: string, password: string) => {
+    console.log({ email, password });
     return new Promise(() => {
       return false;
     });
@@ -78,12 +79,10 @@ export function AuthProvider({ children }: PropsWithChildren) {
         password
       );
       if (authenticatedUser) {
-        if (authenticatedUser) {
-          // MAKING IT AVAILBLE FOR RELOADING
-          localStorage.setItem("authSecret", secret);
-          // SET USER
-          setUser(authenticatedUser);
-        }
+        // MAKING IT AVAILBLE FOR RELOADING
+        localStorage.setItem("authSecret", secret);
+        // SET USER
+        setUser(authenticatedUser);
         return true;
       }
       return false;

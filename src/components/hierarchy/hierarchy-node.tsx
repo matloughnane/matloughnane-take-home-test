@@ -24,9 +24,15 @@ export function HierarchyNode({ user, fullUserMap }: HierarchyNodeProps) {
     >
       <div className="flex flex-row items-center gap-4">
         {reports.length > 0 && !showReports ? (
-          <Plus className="cursor-pointer" onClick={() => setShowReports(true)} />
+          <Plus
+            className="cursor-pointer"
+            onClick={() => setShowReports(true)}
+          />
         ) : (
-          <Minus className="cursor-pointer" onClick={() => setShowReports(false)} />
+          <Minus
+            className="cursor-pointer"
+            onClick={() => setShowReports(false)}
+          />
         )}
         <Avatar className="w-10 h-10 rounded-full border-2 border-primary">
           <AvatarImage
@@ -42,9 +48,11 @@ export function HierarchyNode({ user, fullUserMap }: HierarchyNodeProps) {
         </div>
       </div>
       {showReports && (
-        <div className="flex flex-col ml-8 py-2w">
+        <div className="flex flex-col ml-8 py-2">
           {reports.map((r: User) => {
-            return <HierarchyNode user={r} fullUserMap={fullUserMap} />;
+            return (
+              <HierarchyNode key={r.id} user={r} fullUserMap={fullUserMap} />
+            );
           })}
         </div>
       )}

@@ -1,4 +1,3 @@
-import { LoggedInButton } from "@/components/auth/logged-in-button";
 import { LoggedInButtonExact } from "@/components/auth/logged-in-button-exact";
 import { HierarchyTree } from "@/components/hierarchy/hierarchy-tree";
 import { Card } from "@/components/ui/card";

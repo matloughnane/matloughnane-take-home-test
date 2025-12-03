@@ -19,15 +19,22 @@ Update: I added some small error catching in overtime.
   - There is data in the database
 
 # To Do
+
 Thing I would like to add - but haven't because of time constraints.
 
 - Add Tests
 - Clean Up `auth-utils.ts`. (I've added a try/catch after the submission)
-- Find a more accurate font (for exact view)
 - Add `.env` variables
 - Empty States - I've assumed there is data, it would be nice to have empty states
+- Find a more accurate font (for exact view)
 - Remove unnecessary CSS - I'm not sure about tree-shaking in Vite
 - Add axios / tanstack query if expanding the number of API calls
+
+# Overtime Branch Changes
+
+- Added keys for `hierarchy-node.tsx` and `hierarchy-node-exact.tsx`
+- Changed the `UserMap` to a type instead of an interface
+- Add react tests
 
 # Links
 
