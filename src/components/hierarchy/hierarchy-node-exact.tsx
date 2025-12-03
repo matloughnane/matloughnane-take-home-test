@@ -29,7 +29,7 @@ export function HierarchyNodeExact({ user, fullUserMap }: HierarchyNodeProps) {
         <Avatar className="w-10 h-10 rounded-full border-2 border-primary">
           <AvatarImage
             src={user.photo}
-            className="rounded-full"
+            className="rounded-full object-cover"
             alt={`${fullName} Profile Photo`}
           />
           <AvatarFallback className="bg-white">{`${user.firstName[0]}${user.lastName[0]}`}</AvatarFallback>

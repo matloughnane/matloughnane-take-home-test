@@ -2,16 +2,24 @@ import type { User } from "@/lib/services/user-service";
 import { getUserFullName } from "@/lib/utils/string-utils";
 import { Avatar } from "@radix-ui/react-avatar";
 import { Minus, Plus } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
 import type { UserMap } from "@/lib/utils/tree-utils";
+import { Button } from "../ui/button";
+import { AuthContext } from "@/lib/contexts/auth-context";
 
 interface HierarchyNodeProps {
   user: User;
   fullUserMap: UserMap;
+  deleteUser: (id: number) => void;
 }
 
-export function HierarchyNode({ user, fullUserMap }: HierarchyNodeProps) {
+export function HierarchyNode({
+  user,
+  fullUserMap,
+  deleteUser,
+}: HierarchyNodeProps) {
+  const { user: authenticatedUser } = useContext(AuthContext);
   const fullName = getUserFullName(user.firstName, user.lastName);
   const [showReports, setShowReports] = useState<boolean>(false);
   const reports = fullUserMap.has(user.id)
@@ -24,27 +32,51 @@ export function HierarchyNode({ user, fullUserMap }: HierarchyNodeProps) {
     >
       <div className="flex flex-row items-center gap-4">
         {reports.length > 0 && !showReports ? (
-          <Plus className="cursor-pointer" onClick={() => setShowReports(true)} />
-        ) : (
-          <Minus className="cursor-pointer" onClick={() => setShowReports(false)} />
-        )}
-        <Avatar className="w-10 h-10 rounded-full border-2 border-primary">
-          <AvatarImage
-            src={user.photo}
-            className="rounded-full"
-            alt={`${fullName} Profile Photo`}
+          <Plus
+            className="cursor-pointer"
+            onClick={() => setShowReports(true)}
           />
-          <AvatarFallback className="bg-white">{`${user.firstName[0]}${user.lastName[0]}`}</AvatarFallback>
-        </Avatar>
-        <div>
+        ) : (
+          <Minus
+            className="cursor-pointer"
+            onClick={() => setShowReports(false)}
+          />
+        )}
+        <div className="flex">
+          <Avatar className="w-10 h-10 rounded-full border-2 border-primary cover">
+            <AvatarImage
+              src={user.photo}
+              className="rounded-full cover"
+              alt={`${fullName} Profile Photo`}
+            />
+            <AvatarFallback className="bg-white">{`${user.firstName[0]}${user.lastName[0]}`}</AvatarFallback>
+          </Avatar>
+        </div>
+        <div className="w-full">
           <p>{fullName}</p>
           <p className="text-xs text-muted-foreground">{user.email}</p>
         </div>
+        {authenticatedUser && authenticatedUser.id !== user.id && (
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            onClick={() => deleteUser(user.id)}
+          >
+            Delete
+          </Button>
+        )}
       </div>
       {showReports && (
         <div className="flex flex-col ml-8 py-2w">
           {reports.map((r: User) => {
-            return <HierarchyNode user={r} fullUserMap={fullUserMap} />;
+            return (
+              <HierarchyNode
+                key={r.id}
+                user={r}
+                fullUserMap={fullUserMap}
+                deleteUser={deleteUser}
+              />
+            );
           })}
         </div>
       )}
